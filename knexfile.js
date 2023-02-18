@@ -1,8 +1,5 @@
 // Update with your config settings.
 
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
 module.exports = {
   development: {
     client: "postgresql",
@@ -13,13 +10,20 @@ module.exports = {
       password: "RLft353244",
     },
     migrations: {
-      tableName: "knex_migrations",
+      directory: "./migrations",
+      // tableName: "knex_migrations",
+    },
+    seeds: {
+      directory: "./seeds",
     },
   },
   production: {
     client: "postgresql",
-    migrations: {
-      tableName: "knex_migrations",
+    connection: {
+      connectionString: process.env.DATABASE_URL, //may want to check this if breaking
+      ssl: {
+        rejectUnauthorized: false,
+      },
     },
   },
 };
