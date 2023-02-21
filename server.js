@@ -18,72 +18,73 @@ app.get("/", (request, response) => {
   response.send("This is for the books yo.");
 });
 
+
+app.get("/api/v1/books", (request, response) => {
+    queries.getAll().then((data) => response.send(data));
+    //   const { books } = app.locals;
+    //   response.status(200).json({ books });
+});
+
+app.get("/api/v1/books/:isbn", (request, response) => {
+    const { isbn } = request.params;
+    const book = app.locals.books.find((book) => book.isbn === isbn);
+    if (!book) {
+        return response.status(404).json({
+            message: `no novel found with isbn of # ${isbn}`,
+        });
+    } else {
+        response.status(200).json(book);
+    }
+});
+
+app.post("/api/vi/favorites", (request, response) => {
+    const favorite = request.body;
+    const {
+        isbn,
+        title,
+        description,
+        amazon_link,
+        author,
+        recommended_by,
+        book_image,
+    } = favorite;
+    for (let requiredParameter of [
+        "isbn",
+        "title",
+        "description",
+        "amazon_link",
+        "author",
+        "recommended_by",
+        "book_image",
+    ]) {
+        if (!favorite[requiredParameter]) {
+            response.status(422).send({
+                error: `Expected format: {isbn:<String>, title: <String>, description: <String>, amazon_link: <String>, author: <String>, recommended_by: <String>, book_image: <String>}. You're missing a "${requiredParameter}" property.`,
+            });
+        }
+    }
+    app.locals.favorites.push({
+        isbn,
+        title,
+        description,
+        amazon_link,
+        author,
+        recommended_by,
+        book_image,
+    });
+    response.status(201).json({
+        isbn,
+        title,
+        description,
+        amazon_link,
+        author,
+        recommended_by,
+        book_image,
+    });
+});
+
 app.listen(app.get("port"), () => {
   console.log(
     `${app.locals.title} is running on http://localhost:${app.get("port")}.`
   );
-});
-
-app.get("/api/v1/books", (request, response) => {
-  queries.getAll().then((data) => response.send(data));
-  //   const { books } = app.locals;
-  //   response.status(200).json({ books });
-});
-
-app.get("/api/v1/books/:isbn", (request, response) => {
-  const { isbn } = request.params;
-  const book = app.locals.books.find((book) => book.isbn === isbn);
-  if (!book) {
-    return response.status(404).json({
-      message: `no novel found with isbn of # ${isbn}`,
-    });
-  } else {
-    response.status(200).json(book);
-  }
-});
-
-app.post("/api/vi/favorites", (request, response) => {
-  const favorite = request.body;
-  const {
-    isbn,
-    title,
-    description,
-    amazon_link,
-    author,
-    recommended_by,
-    book_image,
-  } = favorite;
-  for (let requiredParameter of [
-    "isbn",
-    "title",
-    "description",
-    "amazon_link",
-    "author",
-    "recommended_by",
-    "book_image",
-  ]) {
-    if (!favorite[requiredParameter]) {
-      response.status(422).send({
-        error: `Expected format: {isbn:<String>, title: <String>, description: <String>, amazon_link: <String>, author: <String>, recommended_by: <String>, book_image: <String>}. You're missing a "${requiredParameter}" property.`,
-      });
-    }
-  }
-  app.locals.favorites.push({
-    isbn,
-    title,
-    description,
-    amazon_link,
-    author,
-    recommended_by,
-    book_image,
-  });
-  response.status(201).json({
-    isbn,
-    title,
-    description,
-    amazon_link,
-    author,
-    recommended_by,
-    book_image,
-  });
 });
