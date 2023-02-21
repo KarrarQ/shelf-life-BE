@@ -40,50 +40,24 @@ app.get("/api/v1/books/:isbn", (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
+app.get("/api/vi/favorites", (request,response)=> {
+    queries.getAllFavorites()
+    .then(data => response.status(200).json(data))
+    .catch(error => response.status(500).json({ error }))
+})
+
 app.post("/api/vi/favorites", (request, response) => {
     const favorite = request.body;
-    const {
-        isbn,
-        title,
-        description,
-        amazon_link,
-        author,
-        recommended_by,
-        book_image,
-    } = favorite;
-    for (let requiredParameter of [
-        "isbn",
-        "title",
-        "description",
-        "amazon_link",
-        "author",
-        "recommended_by",
-        "book_image",
-    ]) {
+    const { isbn, title ,description ,amazon_link, author, recommended_by, book_image } = favorite;
+    for (let requiredParameter of [ "isbn", "title", "description", "amazon_link", "author", "recommended_by", "book_image"]) {
         if (!favorite[requiredParameter]) {
             response.status(422).send({
                 error: `Expected format: {isbn:<String>, title: <String>, description: <String>, amazon_link: <String>, author: <String>, recommended_by: <String>, book_image: <String>}. You're missing a "${requiredParameter}" property.`,
             });
         }
     }
-    app.locals.favorites.push({
-        isbn,
-        title,
-        description,
-        amazon_link,
-        author,
-        recommended_by,
-        book_image,
-    });
-    response.status(201).json({
-        isbn,
-        title,
-        description,
-        amazon_link,
-        author,
-        recommended_by,
-        book_image,
-    });
+    app.locals.favorites.push({ isbn, title, description, amazon_link, author, recommended_by, book_image });
+    response.status(201).json({ isbn, title, description, amazon_link, author, recommended_by, book_image });
 });
 
 app.listen(app.get("port"), () => {
