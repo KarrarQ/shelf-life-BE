@@ -23,57 +23,82 @@ app.get("/", (request, response) => {
 });
 
 app.get("/api/v1/books", (request, response) => {
-    queries.getAllBooks()
-        .then((data) => response.status(200).json(data))
-        .catch(error => response.status(500).json({ error }))///double check the error in json
+  queries
+    .getAllBooks()
+    .then((data) => response.status(200).json(data))
+    .catch((error) => response.status(500).json({ error })); ///double check the error in json
 });
 
 app.get("/api/v1/books/:isbn", (request, response) => {
-    queries.getSingleBook(request)
-    .then(books => {
-        if(books.length){
-             response.status(200).json(books)
-        } else {
-             response.status(404).json({
-                error: `no novel found with isbn of # ${request.params.isbn}`,
-            });
-        }
+  queries
+    .getSingleBook(request)
+    .then((books) => {
+      if (books.length) {
+        response.status(200).json(books);
+      } else {
+        response.status(404).json({
+          error: `no novel found with isbn of # ${request.params.isbn}`,
+        });
+      }
     })
-    .catch(error => response.status(500).json({ error }));
+    .catch((error) => response.status(500).json({ error }));
 });
 
-app.get("/api/vi/favorites", (request,response)=> {
-    queries.getAllFavorites()
-    .then(data => response.status(200).json(data))
-    .catch(error => response.status(500).json({ error }))
-})
+app.get("/api/vi/favorites", (request, response) => {
+  queries
+    .getAllFavorites()
+    .then((data) => response.status(200).json(data))
+    .catch((error) => response.status(500).json({ error }));
+});
 
 app.delete("/api/v1/favorites/:isbn", (request, response) => {
-    queries.removeBookFromFavorites(request)
-        .then(unfavorited => {
-            if(unfavorited){
-                return response.status(200).json({ message: `book with isbn number ${request.params.isbn} has been removed from faverites` });
-            } else {
-                response.status(404).json({ error: `could not find book based on isbn ${ request.params.isbn}` });
-            }
-        });
+  queries.removeBookFromFavorites(request).then((unfavorited) => {
+    if (unfavorited) {
+      return response.status(200).json({
+        message: `book with isbn number ${request.params.isbn} has been removed from faverites`,
+      });
+    } else {
+      response.status(404).json({
+        error: `could not find book based on isbn ${request.params.isbn}`,
+      });
+    }
+  });
 });
 
 app.post("/api/v1/favorites", (request, response) => {
-    const favorite = request.body;
-    const { isbn, title ,description ,amazon_link, author, recommended_by, book_image } = favorite;
-    for (let requiredParameter of [ "isbn", "title", "description", "amazon_link", "author", "recommended_by", "book_image"]) {
-        if (!favorite[requiredParameter]) {
-            response.status(422).send({
-                error: `Expected format: {isbn:<String>, title: <String>, description: <String>, amazon_link: <String>, author: <String>, recommended_by: <String>, book_image: <String>}. You're missing a "${requiredParameter}" property.`,
-            });
-        }
+  const favorite = request.body;
+  const {
+    isbn,
+    title,
+    description,
+    amazon_link: amazonLink,
+    author,
+    recommended_by: recommendedBy,
+    book_image: bookImage,
+  } = favorite;
+  for (let requiredParameter of [
+    "isbn",
+    "title",
+    "description",
+    "amazon_link",
+    "author",
+    "recommended_by",
+    "book_image",
+  ]) {
+    if (!favorite[requiredParameter]) {
+      response.status(422).send({
+        error: `Expected format: {isbn:<String>, title: <String>, description: <String>, amazon_link: <String>, author: <String>, recommended_by: <String>, book_image: <String>}. You're missing a "${requiredParameter}" property.`,
+      });
     }
-    app.locals.favorites.push({ isbn, title, description, amazon_link, author, recommended_by, book_image });
-    response.status(201).json({ isbn, title, description, amazon_link, author, recommended_by, book_image });
+  }
+  queries
+    .addBookToFavorites(favorite)
+    .then((data) => response.status(201).json(data))
+    .catch((error) => response.status(500).json({ error }));
 });
 
 app.listen(app.get("port"), () => {
   console.log(
-    `${app.locals.title} is running on http://localhost:${app.get("port")}.`);
+    `${app.locals.title} is running on http://localhost:${app.get("port")}.`
+  );
 });
