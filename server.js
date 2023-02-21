@@ -46,6 +46,17 @@ app.get("/api/vi/favorites", (request,response)=> {
     .catch(error => response.status(500).json({ error }))
 })
 
+app.delete("/api/v1/favorites/:isbn", (request, response) => {
+    queries.removeBookFromFavorites(request)
+        .then(unfavorited => {
+            if(unfavorited){
+                return response.status(200).json({ message: `book with isbn number ${request.params.isbn} has been removed from faverites` });
+            } else {
+                response.status(404).json({ error: `could not find book based on isbn ${ request.params.isbn}` });
+            }
+        });
+});
+
 app.post("/api/vi/favorites", (request, response) => {
     const favorite = request.body;
     const { isbn, title ,description ,amazon_link, author, recommended_by, book_image } = favorite;
