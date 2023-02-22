@@ -1,5 +1,16 @@
 const books = [
   {
+    isbn: "9780451240316",
+    title: "THE KEY IS LOVE",
+    description: "A daughter draws on her mother’s wisdom. ",
+    amazon_link:
+      "http://www.amazon.com/The-Key-Love-Daughters-Gratitude/dp/0451240316?tag=NYTBSREV-20",
+    author: "Marie Osmond with Marcia Wilkie",
+    recommended_by: "John Ammon",
+    book_image:
+      "https://storage.googleapis.com/du-prd/books/images/9780451240316.jpg",
+  },
+  {
     isbn: "9781250278210",
     title: "ABANDONED IN DEATH",
     description:
@@ -155,18 +166,6 @@ const books = [
       "https://storage.googleapis.com/du-prd/books/images/9781429969352.jpg",
   },
   {
-    isbn: "9780399588198",
-    title: "BORN A CRIME",
-    description:
-      "A memoir about growing up biracial in apartheid South Africa by the host of “The Daily Show.”",
-    amazon_link:
-      "https://www.amazon.com/Born-Crime-Stories-African-Childhood-ebook/dp/B01DHWACVY?tag=NYTBSREV-20",
-    author: "Trevor Noah",
-    recommended_by: "Reid Poole",
-    book_image:
-      "https://storage.googleapis.com/du-prd/books/images/9780399588181.jpg",
-  },
-  {
     isbn: "9781501110344",
     title: "NOVEMBER 9",
     description:
@@ -292,17 +291,6 @@ const books = [
     recommended_by: "John Ammon",
     book_image:
       "https://storage.googleapis.com/du-prd/books/images/9781455517381.jpg",
-  },
-  {
-    isbn: "9780451240316",
-    title: "THE KEY IS LOVE",
-    description: "A daughter draws on her mother’s wisdom. ",
-    amazon_link:
-      "http://www.amazon.com/The-Key-Love-Daughters-Gratitude/dp/0451240316?tag=NYTBSREV-20",
-    author: "Marie Osmond with Marcia Wilkie",
-    recommended_by: "John Ammon",
-    book_image:
-      "https://storage.googleapis.com/du-prd/books/images/9780451240316.jpg",
   },
   {
     isbn: "9781885167774",
