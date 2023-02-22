@@ -7,7 +7,7 @@ module.exports = {
       database: "shelf_life",
       port: 5432,
       user: "postgres",
-      password: "1996",
+      password: "RLft353244",
     },
     migrations: {
       directory: "./migrations",
@@ -20,7 +20,7 @@ module.exports = {
   production: {
     client: "postgresql",
     connection: {
-      connectionString: process.env.DATABASE_URL, 
+      connectionString: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },
     },
   },
