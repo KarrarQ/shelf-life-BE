@@ -58,11 +58,9 @@ app.delete("/api/v1/favorites/:isbn", (request, response) => {
         message: `Book with isbn number ${request.params.isbn} has been removed from faverites`,
       });
     } else {
-      response
-        .status(404)
-        .json({
-          error: `could not find book based on isbn ${request.params.isbn}`,
-        });
+      response.status(404).json({
+        error: `could not find book based on isbn ${request.params.isbn}`,
+      });
     }
   });
 });
@@ -102,19 +100,15 @@ app.post("/api/v1/favorites", (request, response) => {
 app.patch("/api/v1/books/:isbn", async (request, response) => {
   queries.updatedFavorites(request).then((count) => {
     if (count) {
-      response
-        .status(200)
-        .json({
-          message: `Book with isbn number ${request.params.isbn}`,
-          isFavorited: `${request.body.isFavorited}`,
-        });
+      response.status(200).json({
+        message: `Book with isbn number ${request.params.isbn}`,
+        isFavorited: `${request.body.isFavorited}`,
+      });
     } else {
-      response
-        .status(404)
-        .json({
-          error:
-            "This request failed. Double check your request body and isbn# for proper formatting",
-        });
+      response.status(404).json({
+        error:
+          "This request failed. Double check your request body and isbn# for proper formatting",
+      });
     }
   });
 });
