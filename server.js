@@ -44,7 +44,7 @@ app.get("/api/v1/books/:isbn", (request, response) => {
     .catch((error) => response.status(500).json({ error }));
 });
 
-app.get("/api/vi/favorites", (request, response) => {
+app.get("/api/v1/favorites", (request, response) => {
   queries
     .getAllFavorites()
     .then((data) => response.status(200).json(data))
@@ -99,7 +99,7 @@ app.post("/api/v1/favorites", (request, response) => {
     .catch((error) => response.status(500).json({ error }));
 });
 
-app.patch("./api/v1/books/:isbn", async (request, response) => {
+app.patch("/api/v1/books/:isbn", async (request, response) => {
   queries.updatedFavorites(request).then((count) => {
     if (count) {
       response
