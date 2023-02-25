@@ -60,6 +60,21 @@ app.get("/api/v1/top100", (request, response) => {
     .catch(error => response.status(500).json({error}))
 })
 
+app.get("/api/v1/top100/:isbn", (request, response) => {
+  queries
+    .getTop100Choice(request)
+    .then((books) => {
+      if (books.length) {
+        response.status(200).json(books);
+      } else {
+        response.status(404).json({
+          error: `no novel found with isbn of # ${request.params.isbn}`,
+        });
+      }
+    })
+    .catch((error) => response.status(500).json({ error }));
+});
+
 app.delete("/api/v1/favorites/:isbn", (request, response) => {
   queries.removeBookFromFavorites(request).then((unfavorited) => {
     if (unfavorited) {
@@ -74,6 +89,38 @@ app.delete("/api/v1/favorites/:isbn", (request, response) => {
         });
     }
   });
+});
+
+app.post("/api/v1/books", (request, response) => {
+  const recommended = request.body;
+  const {
+    isbn,
+    title,
+    description,
+    amazon_link: amazonLink,
+    author,
+    recommended_by: recommendedBy,
+    book_image: bookImage,
+  } = recommended;
+  for (let requiredParameter of [
+    "isbn",
+    "title",
+    "description",
+    "amazon_link",
+    "author",
+    "recommended_by",
+    "book_image",
+  ]) {
+    if (!recommended[requiredParameter]) {
+      response.status(422).send({
+        error: `Expected format: {isbn:<String>, title: <String>, description: <String>, amazon_link: <String>, author: <String>, recommended_by: <String>, book_image: <String>}. You're missing a "${requiredParameter}" property.`,
+      });
+    }
+  }
+  queries
+    .addBookToRecommended(recommended)
+    .then((data) => response.status(201).json(data))
+    .catch((error) => response.status(500).json({ error }));
 });
 
 app.post("/api/v1/favorites", (request, response) => {
