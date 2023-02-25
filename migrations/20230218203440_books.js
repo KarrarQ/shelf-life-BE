@@ -20,16 +20,7 @@ exports.up = function (knex) {
       table.string("recommended_by");
       table.string("book_image");
     })
-    .createTable("top100", (table) => {
-      table.increments("id").primary();
-      table.string("isbn");
-      table.string("title");
-      table.string("description");
-      table.string("amazon_link");
-      table.string("author");
-      table.string("book_image");
-      table.timestamps(true, true)
-    })
+   
 };
 
 exports.down = function (knex) {
