@@ -4,10 +4,10 @@ const { request, response } = require("express");
 const express = require("express");
 const ourBooks = require("./data/books-data");
 const favorites = require("./data/favorites-data");
+const top100 = require("./data/top100-data")
 const { all } = require("express/lib/application");
 const app = express();
 const queries = require("./queries");
-const top100 = require("./data/top100-data")
 
 app.use(express.json());
 app.use(cors());
@@ -53,8 +53,11 @@ app.get("/api/v1/favorites", (request, response) => {
     .catch((error) => response.status(500).json({ error }));
 });
 
-app.get("/api/v1/allbooks", (request, response) => {
-
+app.get("/api/v1/top100", (request, response) => {
+  queries
+    .getTop100()
+    .then(data => response.status(200).json(data))
+    .catch(error => response.status(500).json({error}))
 })
 
 app.delete("/api/v1/favorites/:isbn", (request, response) => {

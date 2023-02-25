@@ -12,7 +12,7 @@ module.exports = {
   getTop100(){
     return database("top100")
   },
-  getTop100choice(){
+  getTop100Choice(request){
     return database("top100").where("isbn", request.params.isbn).select();
   },
   addBookToFavorites(favorite) {
