@@ -7,7 +7,7 @@ module.exports = {
       database: "shelf_life",
       port: 5432,
       user: "postgres",
-      password: "RLft353244",
+      password: "Mortis78",
     },
     migrations: {
       directory: "./migrations",

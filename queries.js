@@ -9,6 +9,12 @@ module.exports = {
   getSingleBook(request) {
     return database("books").where("isbn", request.params.isbn).select();
   },
+  getTop100(){
+    return database("top100")
+  },
+  getTop100Choice(request){
+    return database("top100").where("isbn", request.params.isbn).select();
+  },
   addBookToFavorites(favorite) {
     return database("favorites").insert(favorite, "id");
   },
@@ -21,4 +27,6 @@ module.exports = {
   updatedFavorites(request) {
     return database("books").where("isbn",request.params.isbn).update({isFavorited: request.body.isFavorited});
   }
-}; //Add RecommendedBy methods
+}; 
+//Add RecommendedBy methods
+///add GetTop100 here

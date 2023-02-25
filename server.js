@@ -4,6 +4,7 @@ const { request, response } = require("express");
 const express = require("express");
 const ourBooks = require("./data/books-data");
 const favorites = require("./data/favorites-data");
+const top100 = require("./data/top100-data")
 const { all } = require("express/lib/application");
 const app = express();
 const queries = require("./queries");
@@ -17,6 +18,7 @@ app.set("port", process.env.PORT || 3001);
 app.locals.title = "Shelf Life";
 app.locals.books = ourBooks;
 app.locals.favorites = favorites;
+app.locals.top100 = top100;
 
 app.get("/", (request, response) => {
   response.send("This is for the books yo.");
@@ -50,6 +52,13 @@ app.get("/api/v1/favorites", (request, response) => {
     .then((data) => response.status(200).json(data))
     .catch((error) => response.status(500).json({ error }));
 });
+
+app.get("/api/v1/top100", (request, response) => {
+  queries
+    .getTop100()
+    .then(data => response.status(200).json(data))
+    .catch(error => response.status(500).json({error}))
+})
 
 app.delete("/api/v1/favorites/:isbn", (request, response) => {
   queries.removeBookFromFavorites(request).then((unfavorited) => {
