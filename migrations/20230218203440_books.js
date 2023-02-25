@@ -27,8 +27,8 @@ exports.up = function (knex) {
       table.string("description");
       table.string("amazon_link");
       table.string("author");
-      table.string("recommended_by");
       table.string("book_image");
+      table.timestamps(true, true)
     })
 };
 
