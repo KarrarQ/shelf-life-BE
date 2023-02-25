@@ -51,6 +51,10 @@ app.get("/api/v1/favorites", (request, response) => {
     .catch((error) => response.status(500).json({ error }));
 });
 
+app.get("/api/v1/allbooks", (request, response) => {
+  
+})
+
 app.delete("/api/v1/favorites/:isbn", (request, response) => {
   queries.removeBookFromFavorites(request).then((unfavorited) => {
     if (unfavorited) {
