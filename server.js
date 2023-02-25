@@ -76,10 +76,28 @@ app.get("/api/v1/top100/:isbn", (request, response) => {
 });
 
 app.delete("/api/v1/favorites/:isbn", (request, response) => {
-  queries.removeBookFromFavorites(request).then((unfavorited) => {
+  queries
+  .removeBookFromFavorites(request).then((unfavorited) => {
     if (unfavorited) {
       return response.status(200).json({
         message: `Book with isbn number ${request.params.isbn} has been removed from faverites`,
+      });
+    } else {
+      response
+        .status(404)
+        .json({
+          error: `could not find book based on isbn ${request.params.isbn}`,
+        });
+    }
+  });
+});
+
+//maybe need to delete by id??
+app.delete("/api/v1/books/:isbn", (request, response) => {
+  queries.removeBookFromRecommended(request).then((book) => {
+    if (book) {
+      return response.status(200).json({
+        message: `Book with isbn number ${request.params.isbn} has been removed from recommended books`,
       });
     } else {
       response

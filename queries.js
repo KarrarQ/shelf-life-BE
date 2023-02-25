@@ -24,6 +24,9 @@ module.exports = {
   removeBookFromFavorites(request) {
     return database("favorites").where("isbn",request.params.isbn).del();
   },
+  removeBookFromRecommended(request) {
+    return database("books").where("isbn",request.params.isbn).del();
+  },
   getAllFavorites() {
     return database("favorites");
   },
