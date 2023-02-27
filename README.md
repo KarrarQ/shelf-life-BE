@@ -54,10 +54,10 @@ This project is a custom built backend (by frontend engineers), with a GET, POST
 - Create DRY and clean code!
 
 ## Preview 
-![mainPage]()
-![BookDeets]()
-![Favorites]()
-![errorPage]()
+![top100](ScreenshotTop100.png)
+![books](ScreenshotBooks.png)
+![Favorites](ScreenshotFavorites.png)
+![errorPage](ScreenshotForTheBookYo.png)
 ![Screen Shot 2023-02-13 at 11 56 47 AM]()
 
 
