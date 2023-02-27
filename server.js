@@ -8,6 +8,7 @@ const top100 = require("./data/top100-data")
 const { all } = require("express/lib/application");
 const app = express();
 const queries = require("./queries");
+const enviornment = process.env.NODE_ENV || "development"
 
 app.use(express.json());
 app.use(cors());
