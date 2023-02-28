@@ -7,11 +7,10 @@ module.exports = {
       database: "shelf_life",
       port: 5432,
       user: "postgres",
-      password: "Mortis78",
+      password: "1996",
     },
     migrations: {
       directory: "./migrations",
-      // tableName: "knex_migrations",
     },
     seeds: {
       directory: "./seeds",
