@@ -57,13 +57,13 @@ This project is a custom built backend, with a GET, POST, PATCH, and DELETE meth
 
 ## Preview 
 ### Landing Page 
-![Landing Page](ScreenshotForTheBookYo.png)
+![Landing Page](screenshots/ScreenshotForTheBookYo.png)
 ### Recommended Books
-![books](ScreenshotBooks.png)
+![books](screenshots/ScreenshotBooks.png)
 ### Favorited Books 
-![Favorites](ScreenshotFavorites.png)
+![Favorites](screenshots/ScreenshotFavorites.png)
 ### Top100 PostseQL
-![top100](ScreenshotTop100.png)
+![top100](screenshots/ScreenshotTop100.png)
 
 ## Wins & Challenges
 
