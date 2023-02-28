@@ -72,8 +72,24 @@ app.get("/api/v1/top100/:isbn", (request, response) => {
     .catch((error) => response.status(500).json({ error }));
 });
 
+app.get("/api/v1/top100/:isbn", (request, response) => {
+  queries
+    .getTop100Choice(request)
+    .then((books) => {
+      if (books.length) {
+        response.status(200).json(books);
+      } else {
+        response.status(404).json({
+          error: `no novel found with isbn of # ${request.params.isbn}`,
+        });
+      }
+    })
+    .catch((error) => response.status(500).json({ error }));
+});
+
 app.delete("/api/v1/favorites/:isbn", (request, response) => {
-  queries.removeBookFromFavorites(request).then((unfavorited) => {
+  queries
+  .removeBookFromFavorites(request).then((unfavorited) => {
     if (unfavorited) {
       return response.status(200).json({
         message: `Book with isbn number ${request.params.isbn} has been removed from faverites`,
