@@ -19,10 +19,12 @@ exports.up = function (knex) {
       table.string("author");
       table.string("recommended_by");
       table.string("book_image");
-    })
-   
+    });
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTable("books").dropTable("favorites").dropTable("top100")
+  return knex.schema
+    .dropTable("books")
+    .dropTable("favorites")
+    .dropTable("top100");
 };
