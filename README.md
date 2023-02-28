@@ -1,6 +1,6 @@
 # Shelf Life
 
-Do you have a hard time picking out the right book to read?  Well look no further, Shelf Life is here to help! This Backend for the App is a database for book recomendations! You are able to look at a database of books referred by the Creators and add the book to your favorites database based on your interest and the recomendation!  Further more, you are able to search the New York Times top 100 database best sellers and add your recommendation to the recommendation database.
+Do you have a hard time picking out the right book to read?  Well look no further, Shelf Life is here to help! This Backend for the App is a database for book recomendations! You are able to look at a database of books referred by the Creators and add the book to your favorites database based on your interest and the recomendation!  Further more, there is a data base accessible to access NYT Top100 Books.
 
 ## Table of Contents
   - [Setup](#setup)
@@ -13,13 +13,16 @@ Do you have a hard time picking out the right book to read?  Well look no furthe
   - [Authors](#Authors)
 
 ## Setup
-
-- Clone down this repo [here](https://github.com/KarrarQ/shelf-life-BE)
-- On the command line, type: $ npm intall
-- On the command line, type: $ npm start
-- Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
-- ^^ change this based on the HEROKU deployed page
-- The page will reload when you make changes.\
+- Deployed on Heroku 
+  - [Recommended Books](https://shelf-life-db.herokuapp.com/api/v1/books)
+  - [Favorited Books](https://shelf-life-db.herokuapp.com/api/v1/favorites)
+  - [NYT Top100](https://shelf-life-db.herokuapp.com/api/v1/top100) 
+- Run Locally 
+  - Clone down this repo [here](https://github.com/KarrarQ/shelf-life-BE)
+  - On the command line, type: $ npm intall
+  - On the command line, type: $ npm start
+  - Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
+  - The page will reload when you make changes.\
 
 
 ## Technologies
@@ -43,8 +46,7 @@ Do you have a hard time picking out the right book to read?  Well look no furthe
 
 ## Abstract 
 
-This project is a custom built backend (by frontend engineers), with a GET, POST, PATCH, and DELETE methods, attached to 3 separate tables on our PostseQL. We connected our Express app with postseQL using the helper dependency of knex!  Knex helps us build our tables with migrations, and then it helps us fill the tables out with our data, using Seeding!  The first table we created in our Shelf Life Database is for books that users recommend, we started off with 10 per group member so a total of 30 recommendations in our first table.  The Favorites table is affected by the user's choice of favorite books, this database - table updates with the User's actions.  Finally we created a third table that included the New York Times Best Sellers top 100 books, Though we did not have enough time (one week) to build out the FE functionality, the Backend table is ready to go! We imagined users going through the our top100 database table and choosing books to add (POST) to the recomendation database.  With an extra day I believe this would have come to life!
-
+This project is a custom built backend, with a GET, POST, PATCH, and DELETE methods, attached to 3 separate tables on our PostseQL. We connected our Express app with postseQL using the helper dependency of knex!  Knex helps us build our tables with migrations, and then it helps us fill the tables out with our data, using Seeding!  The first table we created in our Shelf Life Database is for books that users recommend, we started off with 10 per group member so a total of 30 recommendations in our first table.  The Favorites table is affected by the user's choice of favorite books, this database - table updates with the User's actions.  Finally we created a third table that included the New York Times Best Sellers top 100 books, Though we did not have enough time (one week) to build out the full FE functionality, the Backend table is ready to go! We imagined users going through the our top100 database table and choosing books to add (POST) to the recomendation database.  
 ## Learning Goals
 
 - Build Backend using Express, Knex, and PostseQL
@@ -54,12 +56,14 @@ This project is a custom built backend (by frontend engineers), with a GET, POST
 - Create DRY and clean code!
 
 ## Preview 
-![top100](ScreenshotTop100.png)
+### Landing Page 
+![Landing Page](ScreenshotForTheBookYo.png)
+### Recommended Books
 ![books](ScreenshotBooks.png)
+### Favorited Books 
 ![Favorites](ScreenshotFavorites.png)
-![errorPage](ScreenshotForTheBookYo.png)
-![Screen Shot 2023-02-13 at 11 56 47 AM]()
-
+### Top100 PostseQL
+![top100](ScreenshotTop100.png)
 
 ## Wins & Challenges
 
