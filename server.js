@@ -4,15 +4,12 @@ const { request, response } = require("express");
 const express = require("express");
 const ourBooks = require("./data/books-data");
 const favorites = require("./data/favorites-data");
-const top100 = require("./data/top100-data")
-const { all } = require("express/lib/application");
+const top100 = require("./data/top100-data");
 const app = express();
 const queries = require("./queries");
 
 app.use(express.json());
 app.use(cors());
-// app.use(express.static("public"));
-//the line above refers to the 'PUBLIC' file
 
 app.set("port", process.env.PORT || 3001);
 app.locals.title = "Shelf Life";
@@ -56,9 +53,24 @@ app.get("/api/v1/favorites", (request, response) => {
 app.get("/api/v1/top100", (request, response) => {
   queries
     .getTop100()
-    .then(data => response.status(200).json(data))
-    .catch(error => response.status(500).json({error}))
-})
+    .then((data) => response.status(200).json(data))
+    .catch((error) => response.status(500).json({ error }));
+});
+
+app.get("/api/v1/top100/:isbn", (request, response) => {
+  queries
+    .getTop100Choice(request)
+    .then((books) => {
+      if (books.length) {
+        response.status(200).json(books);
+      } else {
+        response.status(404).json({
+          error: `no novel found with isbn of # ${request.params.isbn}`,
+        });
+      }
+    })
+    .catch((error) => response.status(500).json({ error }));
+});
 
 app.get("/api/v1/top100/:isbn", (request, response) => {
   queries
@@ -83,11 +95,9 @@ app.delete("/api/v1/favorites/:isbn", (request, response) => {
         message: `Book with isbn number ${request.params.isbn} has been removed from faverites`,
       });
     } else {
-      response
-        .status(404)
-        .json({
-          error: `could not find book based on isbn ${request.params.isbn}`,
-        });
+      response.status(404).json({
+        error: `could not find book based on isbn ${request.params.isbn}`,
+      });
     }
   });
 });
@@ -159,19 +169,15 @@ app.post("/api/v1/favorites", (request, response) => {
 app.patch("/api/v1/books/:isbn", async (request, response) => {
   queries.updatedFavorites(request).then((count) => {
     if (count) {
-      response
-        .status(200)
-        .json({
-          message: `Book with isbn number ${request.params.isbn}`,
-          isFavorited: `${request.body.isFavorited}`,
-        });
+      response.status(200).json({
+        message: `Book with isbn number ${request.params.isbn}`,
+        isFavorited: `${request.body.isFavorited}`,
+      });
     } else {
-      response
-        .status(404)
-        .json({
-          error:
-            "This request failed. Double check your request body and isbn# for proper formatting",
-        });
+      response.status(404).json({
+        error:
+          "This request failed. Double check your request body and isbn# for proper formatting",
+      });
     }
   });
 });

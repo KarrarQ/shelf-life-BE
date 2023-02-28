@@ -3,7 +3,7 @@ exports.up = function (knex) {
     table.increments("id").primary();
     table.string("isbn");
     table.string("title");
-    table.string("description");
+    table.string("description", 2000);
     table.string("amazon_link");
     table.string("author");
     table.string("book_image");
@@ -11,6 +11,6 @@ exports.up = function (knex) {
   });
 };
 
-exports.down = function(knex) {
-  return knex.schema.dropTable("top100")
+exports.down = function (knex) {
+  return knex.schema.dropTable("top100");
 };

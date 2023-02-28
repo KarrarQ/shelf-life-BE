@@ -7,6 +7,5 @@ exports.seed = function(knex) {
     })
     .then(() => {
       return knex("top100").insert(top100)
-      
     })
 }
