@@ -34,5 +34,3 @@ module.exports = {
     return database("books").where("isbn",request.params.isbn).update({isFavorited: request.body.isFavorited});
   }
 }; 
-//Add RecommendedBy methods
-///add GetTop100 here
